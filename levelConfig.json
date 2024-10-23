@@ -1,0 +1,95 @@
+[
+    {
+        "level_id" : 0
+    },
+    {
+        "level_id" : 1,
+        "level_info" :
+        {
+            "level_map" : "level/1.map",
+            "player_pos" : [4, 4],
+            "box_pos_list" : [[3, 3], [3, 5], [4, 3], [5, 4]]
+        }
+    },
+    {
+        "level_id" : 2,
+        "level_info" :
+        {
+            "level_map" : "level/2.map",
+            "player_pos" : [1, 1],
+            "box_pos_list" : [[2, 2], [2, 3], [3, 2]]
+        }
+    },
+    {
+        "level_id" : 3,
+        "level_info" :
+        {
+            "level_map" : "level/3.map",
+            "player_pos" : [3, 2],
+            "box_pos_list" : [[2, 2], [3, 4], [3, 7], [4, 6]]
+        }
+    },
+    {
+        "level_id" : 4,
+        "level_info" :
+        {
+            "level_map" : "level/4.map",
+            "player_pos" : [2, 1],
+            "box_pos_list" : [[2, 2], [3, 2], [4, 3], [5, 2], [6, 3]]
+        }
+    },
+    {
+        "level_id" : 5,
+        "level_info" :
+        {
+            "level_map" : "level/5.map",
+            "player_pos" : [2, 2],
+            "box_pos_list" : [[2, 3], [5, 2], [6, 5]]
+        }
+    },
+    {
+        "level_id" : 6,
+        "level_info" :
+        {
+            "level_map" : "level/6.map",
+            "player_pos" : [8, 11],
+            "box_pos_list" : [[4, 4], [4, 6], [5, 5], [6, 4], [6, 6]]
+        }
+    },
+    {
+        "level_id" : 7,
+        "level_info" :
+        {
+            "level_map" : "level/7.map",
+            "player_pos" : [1, 8],
+            "box_pos_list" : [[3, 3], [3, 5], [3, 7], [4, 4], [5, 4]]
+        }
+    },
+    {
+        "level_id" : 8,
+        "level_info" :
+        {
+            "level_map" : "level/8.map",
+            "player_pos" : [3, 8],
+            "box_pos_list" : [[2, 4], [3, 3], [3, 5], [4, 4], [4, 6]]
+        }
+    },
+    {
+        "level_id" : 9,
+        "level_info" :
+        {
+            "level_map" : "level/9.map",
+            "player_pos" : [7, 8],
+            "box_pos_list" : [[3, 2], [2, 5], [3, 8], [6, 2], [6, 5], [6, 8]]
+        }
+    },
+    {
+        "level_id" : 10,
+        "level_info" :
+        {
+            "level_map" : "level/10.map",
+            "player_pos" : [3, 1],
+            "box_pos_list" : [[2, 3], [2, 4], [2, 5], [3, 3], [4, 2]]
+        }
+    }
+]
