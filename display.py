@@ -60,6 +60,10 @@ class Display:
                     pygame.display.quit()
                     return
                 if event.type == pygame.KEYDOWN:
+                    #esc键退出
+                    if event.key == pygame.K_ESCAPE:
+                        pygame.display.quit()
+                        return
                     if not self.is_game_win:
                         if not pygame.key.get_pressed()[pygame.K_UP] and not pygame.key.get_pressed()[
                             pygame.K_LEFT] and not pygame.key.get_pressed()[pygame.K_DOWN] and not \
@@ -163,6 +167,13 @@ class Display:
             rect.centerx = self.screen_size[0] / 2
             rect.centery = self.grid_size
             self.screen.blit(img, rect)
+            
+        # 显示“按ESC退出”文字
+        esc_font = pygame.font.SysFont("arial", 50)
+        esc_text = esc_font.render('press ESC to quit', True, (255, 255, 255))  # 白色文字
+        esc_rect = esc_text.get_rect()
+        esc_rect.topright = (self.screen_size[0] - 10, 10)  # 右上角位置
+        self.screen.blit(esc_text, esc_rect)
 
     def game_win(self):
         self.is_game_win = True
