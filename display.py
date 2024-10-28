@@ -64,6 +64,10 @@ class Display:
                     if event.key == pygame.K_ESCAPE:
                         pygame.display.quit()
                         return
+                    # 按下space 键运行 solution.py
+                    if event.key == pygame.K_SPACE:
+                            subprocess.run(["python", "solution.py"])  # 运行 solution.py
+                        
                     if not self.is_game_win:
                         if not pygame.key.get_pressed()[pygame.K_UP] and not pygame.key.get_pressed()[
                             pygame.K_LEFT] and not pygame.key.get_pressed()[pygame.K_DOWN] and not \
@@ -175,6 +179,13 @@ class Display:
         esc_rect.topright = (self.screen_size[0] - 10, 10)  # 右上角位置
         self.screen.blit(esc_text, esc_rect)
 
+        # 显示“按space looking for help”文字
+        esc_font = pygame.font.SysFont("arial", 30)
+        esc_text = esc_font.render('press Space to see answer', True, (255, 255, 255))  # 白色文字
+        esc_rect = esc_text.get_rect()
+        esc_rect.topright = (self.screen_size[0] - 10, 40)  # 右上角位置
+        self.screen.blit(esc_text, esc_rect)
+        
     def game_win(self):
         self.is_game_win = True
         self.unlock_new_level()
