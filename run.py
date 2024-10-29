@@ -4,6 +4,7 @@ __author__ = 'Zhewei Hu'
 from PyQt5 import QtCore, QtWidgets
 from mainform import MainWindow
 import sys
+import pygame
 
 if __name__ == "__main__":
     # 整点bgm
