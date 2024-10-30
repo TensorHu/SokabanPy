@@ -39,17 +39,21 @@ class MapEditor:
         pygame.display.set_caption("Map Editor")
         # 设置字体
         font1 = pygame.font.SysFont("arial", 33)
+        font3 = pygame.font.SysFont("arial", 16)
         font2 = pygame.font.SysFont("arial", 100)
         # 地图的实际宽度和高度
         map_width = 10
         map_height = 10
         # 定义一个函数用于在矩形中显示文本
-        def display_text_in_rect(screen, text, rect, color):
-            text_surface = font1.render(text, True, color)
+        def display_text_in_rect(screen, text, rect, color,mode = 0):
+            if mode == 0:
+                text_surface = font1.render(text, True, color)
+            else:
+                text_surface = font3.render(text, True, color)
             text_rect = text_surface.get_rect(center=rect.center)
             screen.blit(text_surface, text_rect)
 
-        # 存储关卡数据的字典
+        # 存储关卡数据的初始字典
         data1 = {
             "level_id" : 0,
             "level_info" :
@@ -210,10 +214,10 @@ class MapEditor:
                         screen.blit(aim_pos, display_rect[i])
                     elif i == 5:
                         pygame.draw.rect(screen, (40, 40, 40),display_rect[i])
-                        display_text_in_rect(screen, "None", display_rect[i], color_unselected)
+                        display_text_in_rect(screen, "Delete square", display_rect[i], color_unselected,1)
                     elif i == 6:
                         pygame.draw.rect(screen, (40,40,40),display_rect[i])
-                        display_text_in_rect(screen, "delete", display_rect[i], color_unselected)
+                        display_text_in_rect(screen, "Delete box", display_rect[i], color_unselected,1)
 
                 # 绘制返回和保存按钮
                 pygame.draw.rect(screen, (70, 20, 0), return_rect)
