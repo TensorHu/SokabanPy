@@ -50,7 +50,7 @@ class MapEditor:
             screen.blit(text_surface, text_rect)
 
         # 存储关卡数据的字典
-        data = {
+        data1 = {
             "level_id" : 0,
             "level_info" :
             {
@@ -59,6 +59,7 @@ class MapEditor:
                 "box_pos_list" : []
             }
         }
+        data = data1.copy()
         # 创建各种矩形区域，用于界面交互
         create_rect = pygame.Rect(W * 0.6, H * 0.7, W * 0.2, H * 0.1)
         select_rect = pygame.Rect(W * 0.6, H * 0.55, W * 0.2, H * 0.1)
@@ -221,8 +222,7 @@ class MapEditor:
                     color = color_selecting
                     if mouse_l_clicked:
                         interface = 0
-                        data["level_info"]['player_pos'] = [1, 1]
-                        data["level_info"]["box_pos_list"] = []
+                        data = data1.copy()
                 display_text_in_rect(screen, "cancel", return_rect, color)
 
                 pygame.draw.rect(screen, (0, 90, 0), save_rect)
@@ -250,8 +250,7 @@ class MapEditor:
                             with open('levelConfig.json', 'w') as file:
                                 json.dump(levelConfig, file, indent = 4)
 
-                            data["level_info"]['player_pos'] = [1,1]
-                            data["level_info"]["box_pos_list"] = []
+                            data = data1.copy()
                 display_text_in_rect(screen, "save", save_rect, color)
 
                 pygame.display.update()
@@ -279,8 +278,9 @@ class MapEditor:
                                 i in range(map_height)]
                     interface = 3
                 else:# 修改关卡
+
                     interface = 3
-                    data = levelConfig[level_to_select]
+                    data = levelConfig[level_to_select].copy()
                     with open(f"level/{level_to_select}.map", 'r') as file:
                         map = file.read()
                     map = map.split('\n')
