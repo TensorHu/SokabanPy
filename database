@@ -1,0 +1,44 @@
+import pymysql#导入数据库并建立连接
+conn=pymysql.connect(
+    host='10.10.116.170',
+    user='root',
+    password='123456',
+    db='boxman',
+    port=3306,
+    charset='utf8'
+    )
+#游标
+cur=conn.cursor()
+
+'''
+更新数据
+sql="UPDATE user SET level=%s WHERE ID=%s"
+values=(6,"张三")
+cur.execute(sql,values)
+conn.commit()
+print("数据更新成功")
+'''
+
+'''
+插入数据
+sql="INSERT INTO user (ID,level,password) VALUES(%s,%s,%s)"
+values=("Mike",7,123)
+cur.execute(sql,values)
+conn.commit()
+print("数据更新成功")
+'''
+
+'''
+查询数据
+sql="SELECT level FROM user where ID=%s AND password=%s"
+values=("Mike",123)
+cur.execute(sql,values)
+result=cur.fetchall()
+user_level=result[0][0]
+print("数据查询成功")
+print(user_level)
+'''
+
+#释放连接
+cur.close()
+conn.close()
