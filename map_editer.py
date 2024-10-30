@@ -64,6 +64,12 @@ class MapEditor:
             }
         }
         data = data1.copy()
+        wall_ = pygame.transform.scale(wall, (H * 0.1, H * 0.1))
+        hero_ = pygame.transform.scale(hero, (H * 0.1, H * 0.1))
+        box_ = pygame.transform.scale(box, (H * 0.1, H * 0.1))
+        box_c_ = pygame.transform.scale(box_c, (H * 0.1, H * 0.1))
+        carpet_ = pygame.transform.scale(carpet, (H * 0.1, H * 0.1))
+        aim_pos_ = pygame.transform.scale(aim_pos, (H * 0.1, H * 0.1))
         # 创建各种矩形区域，用于界面交互
         create_rect = pygame.Rect(W * 0.6, H * 0.7, W * 0.2, H * 0.1)
         select_rect = pygame.Rect(W * 0.6, H * 0.55, W * 0.2, H * 0.1)
@@ -77,7 +83,7 @@ class MapEditor:
         display_rect = []
 
         for i in range(0,7):
-            display_rect.append(pygame.Rect(W * 0.8, H * 0.1 * (1 + i), H * 0.1, H * 0.1))
+            display_rect.append(pygame.Rect(W * 0.8, H * 0.11 * (1 + i), H * 0.1, H * 0.1))
 
         height_rect = pygame.Rect(W * 0.3, H * 0.7, W * 0.15, H * 0.1)
         width_rect = pygame.Rect(W * 0.3, H * 0.8, W * 0.15, H * 0.1)
@@ -195,7 +201,7 @@ class MapEditor:
 
                 # 绘制显示状态选择条
                 sl = 0
-                rect_pointer = pygame.Rect(W * 0.71, H * 0.1 * (1 + disp_state), H * 0.1, H * 0.05)
+                rect_pointer = pygame.Rect(W * 0.79, H * 0.11 * (1 + disp_state), H * 0.03, H * 0.1)
                 pygame.draw.rect(screen, (0,20*(counter1%10),0),rect_pointer)
                 for i in range(0, 7):
                     if display_rect[i].collidepoint(mouse_pos):
@@ -203,15 +209,15 @@ class MapEditor:
                             sl = 1
                             disp_state = i
                     if i == 0:
-                        screen.blit(carpet, display_rect[i])
+                        screen.blit(carpet_, display_rect[i])
                     elif i == 1:
-                        screen.blit(box, display_rect[i])
+                        screen.blit(box_, display_rect[i])
                     elif i == 2:
-                        screen.blit(hero, display_rect[i])
+                        screen.blit(hero_, display_rect[i])
                     elif i == 3:
-                        screen.blit(wall, display_rect[i])
+                        screen.blit(wall_, display_rect[i])
                     elif i == 4:
-                        screen.blit(aim_pos, display_rect[i])
+                        screen.blit(aim_pos_, display_rect[i])
                     elif i == 5:
                         pygame.draw.rect(screen, (40, 40, 40),display_rect[i])
                         display_text_in_rect(screen, "Delete square", display_rect[i], color_unselected,1)
