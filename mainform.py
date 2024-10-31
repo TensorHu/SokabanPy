@@ -8,8 +8,10 @@ from mainwindow import Ui_MainWindow
 from map_editer import MapEditor
 
 class MainWindow(QtWidgets.QMainWindow):
-    def __init__(self):
+    def __init__(self,USER_ID:str,USER_LEVEL:int):
         super().__init__()
+        self.USER_ID=USER_ID
+        self.USER_LEVEL=USER_LEVEL
         # self.ui = uic.loadUi("./mainwindow.ui")
         # self.ui.show()
         # self.load_sav()
@@ -25,7 +27,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
 
     def start_level(self):
-        d = Display()
+        d = Display(self.USER_ID,self.USER_LEVEL)
         d.load_level(self.ui.spinBox.value())
         self.load_sav()
 
@@ -39,9 +41,9 @@ class MainWindow(QtWidgets.QMainWindow):
         """
             读取当前关卡进度
         """
-        sav_file_path = "./level.sav"
-        with open(sav_file_path, "r") as f:
-            max_unlock_level = int(f.readline().strip("\n"))
+        #sav_file_path = "./level.sav"
+        #with open(sav_file_path, "r") as f:
+        max_unlock_level =self.USER_LEVEL#后退tab#int(f.readline().strip("\n"))
         # 更新spinbox的值与最大值
         self.ui.spinBox.setMaximum(max_unlock_level)
         self.ui.spinBox.setValue(max_unlock_level)

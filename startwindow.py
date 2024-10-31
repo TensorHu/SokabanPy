@@ -2,6 +2,17 @@ __author__ = 'Xitong Wei'
 
 from PyQt5 import QtWidgets, QtCore
 import sys
+import pymysql#导入数据库并建立连接
+conn=pymysql.connect(
+    host='localhost',
+    user='root',
+    password='123456',
+    db='boxman',
+    port=3306,
+    charset='utf8'
+    )
+#游标
+cur=conn.cursor()
 
 # 引入 开始界面ui 类
 from start import Ui_MainWindow
@@ -31,7 +42,11 @@ class MyMainWindow(QtWidgets.QMainWindow):
 
         ###### 这里写数据库相关代码 ######
         # 功能：把register_userID和对应的register_password写入数据库
-
+        sql="INSERT INTO user (ID,level,password) VALUES(%s,%s,%s)"
+        values=(register_userID,1,register_password)
+        cur.execute(sql,values)
+        conn.commit()
+        print("数据更新成功")
 
 
 
@@ -47,12 +62,20 @@ class MyMainWindow(QtWidgets.QMainWindow):
 
         # 获取用户输入
         userID = self.ui.lineEdit.text()
+        USER_ID=userID
         password = self.ui.lineEdit_2.text()
         print("ID: ", userID, "\npassword: ", password, "\n")  # 测试代码
 
         ######### 这里是数据库相关代码 ########
         # 功能：从数据库里读取和userID匹配的通关数据
         # 有没有可能实现“检测密码是否正确”的功能？=_=
+        sql="SELECT level FROM user where ID=%s AND password=%s"
+        values=(userID,password)
+        cur.execute(sql,values)
+        result=cur.fetchall()
+        USER_LEVEL=result[0][0]
+        print("数据查询成功")
+        print(USER_LEVEL)
 
 
 
@@ -60,7 +83,7 @@ class MyMainWindow(QtWidgets.QMainWindow):
         ############
 
         # 启动主游戏界面
-        self.gameMainWindow = MainWindow()
+        self.gameMainWindow = MainWindow(USER_ID,USER_LEVEL)
         self.gameMainWindow.show()
 
 

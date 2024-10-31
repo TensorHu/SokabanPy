@@ -4,13 +4,27 @@ __author__ = 'Zhewei Hu'
 from stage import LevelStage
 import pygame
 
+import pymysql#导入数据库并建立连接
+conn=pymysql.connect(
+    host='localhost',
+    user='root',
+    password='123456',
+    db='boxman',
+    port=3306,
+    charset='utf8'
+    )
+#游标
+cur=conn.cursor()
+
 MAX_LEVEL_ID = 10
 
 class Display:
     """
         显示游戏界面的窗口
     """
-    def __init__(self):
+    def __init__(self,USER_ID:str,USER_LEVEL:int):
+        self.USER_ID=USER_ID
+        self.USER_LEVEL=USER_LEVEL
         self.stage = LevelStage()
         self.init_img_src()
         self.flip = 0
@@ -194,9 +208,14 @@ class Display:
         """
             通关，解锁新的一关
         """
-        sav_file_path = "./level.sav"
-        with open(sav_file_path, "r") as f:
-            max_unlock_level = int(f.readline().strip("\n"))
-        if(self.stage.level_id == max_unlock_level and max_unlock_level < MAX_LEVEL_ID):
-            with open(sav_file_path, "w") as f:
-                f.write("%d" % (max_unlock_level+1))
+        #sav_file_path = "./level.sav"
+        #with open(sav_file_path, "r") as f:
+        max_unlock_level = self.USER_LEVEL+1#int(f.readline().strip("\n"))
+        sql="UPDATE user SET level=%s WHERE ID=%s"
+        values=(max_unlock_level,self.USER_ID)
+        cur.execute(sql,values)
+        conn.commit()
+        print("解锁了新的关卡")
+        #if(self.stage.level_id == max_unlock_level and max_unlock_level < MAX_LEVEL_ID):
+            #with open(sav_file_path, "w") as f:
+                #f.write("%d" % (max_unlock_level+1))
