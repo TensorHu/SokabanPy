@@ -9,14 +9,37 @@
 __author__ = 'Xitong Wei'
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtGui import QMovie, QFont
 
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(397, 499)
+        MainWindow.resize(650, 750)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
+
+        # 设置窗口字体
+        font = QFont("Arial", 20)  # 选择字体和大小
+        MainWindow.setFont(font)
+
+        # 创建主垂直布局
+        mainLayout = QtWidgets.QVBoxLayout(self.centralwidget)
+
+        # GIF 显示区域
+        self.label_2 = QtWidgets.QLabel(self.centralwidget)
+        movie = QMovie(r"img/startwindow.gif")  # 替换为你的GIF文件路径
+        self.label_2.setMovie(movie)
+        movie.start()  # 开始播放GIF
+        self.label_2.setScaledContents(True)
+        # self.label_2.setSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)  # 让GIF自适应大小
+        self.label_2.setMaximumHeight(600)  # 设置最大高度限制
+        mainLayout.addWidget(self.label_2)
+
+        # 创建输入框布局
+        inputLayout = QtWidgets.QVBoxLayout()
+        inputLayout.addStretch()
+
         self.widget = QtWidgets.QWidget(self.centralwidget)
         self.widget.setGeometry(QtCore.QRect(0, 0, 600, 700))
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
@@ -32,47 +55,56 @@ class Ui_MainWindow(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.label.sizePolicy().hasHeightForWidth())
         self.label.setSizePolicy(sizePolicy)
-        self.label.setStyleSheet("background-color:rgb(29, 45, 58);\n"
-"")
+        # self.label.setStyleSheet("background-color:rgb(29, 45, 58);\n""")
         self.label.setText("")
         self.label.setObjectName("label")
-        self.lineEdit = QtWidgets.QLineEdit(self.widget)
+        self.lineEdit = QtWidgets.QLineEdit(self.centralwidget)
+        self.lineEdit.setFixedHeight(40)  # 固定输入框高度
         self.lineEdit.setGeometry(QtCore.QRect(80, 270, 211, 41))
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.lineEdit.sizePolicy().hasHeightForWidth())
-        self.lineEdit.setSizePolicy(sizePolicy)
-        self.lineEdit.setStyleSheet("background-color:rgb(29, 45, 58);\n"
-"border:1px solid rgba(0,0,0,0);\n"
-"border-bottom-color:rgba(255,255,255,200);\n"
-"font-weight:bold;\n"
-"font: 900 16pt;\n"
-"color: rgb(255, 255, 255);")
+        # sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        # sizePolicy.setHorizontalStretch(0)
+        # sizePolicy.setVerticalStretch(0)
+        # sizePolicy.setHeightForWidth(self.lineEdit.sizePolicy().hasHeightForWidth())
+        # self.lineEdit.setSizePolicy(sizePolicy)
+        self.lineEdit.setStyleSheet("background-color:rgb(59, 94, 127);\n"
+                                    "border:1px solid rgba(0,0,0,0);\n"
+                                    "border-bottom-color:rgba(255,255,255,200);\n"
+                                    "font-weight:bold;\n"
+                                    "font: 900 16pt;\n"
+                                    "color: rgb(255, 255, 255);")
         self.lineEdit.setInputMask("")
-        self.lineEdit.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
-        self.lineEdit.setCursorMoveStyle(QtCore.Qt.LogicalMoveStyle)
+        # self.lineEdit.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
+        # self.lineEdit.setCursorMoveStyle(QtCore.Qt.LogicalMoveStyle)
         self.lineEdit.setObjectName("lineEdit")
-        self.lineEdit_2 = QtWidgets.QLineEdit(self.widget)
+        inputLayout.addWidget(self.lineEdit)
+
+        self.lineEdit_2 = QtWidgets.QLineEdit(self.centralwidget)
+        self.lineEdit_2.setFixedHeight(40)  # 固定输入框高度
         self.lineEdit_2.setGeometry(QtCore.QRect(80, 320, 211, 41))
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.lineEdit_2.sizePolicy().hasHeightForWidth())
-        self.lineEdit_2.setSizePolicy(sizePolicy)
-        self.lineEdit_2.setStyleSheet("background-color:rgb(29, 45, 58);\n"
-"border:1px solid rgba(0,0,0,0);\n"
-"border-bottom-color:rgba(255,255,255,200);\n"
-"color: rgb(255, 255, 255);\n"
-"font-weight:bold;\n"
-"font: 900 16pt;\n"
-"color: rgb(255, 255, 255);")
+        # sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        # sizePolicy.setHorizontalStretch(0)
+        # sizePolicy.setVerticalStretch(0)
+        # sizePolicy.setHeightForWidth(self.lineEdit_2.sizePolicy().hasHeightForWidth())
+        # self.lineEdit_2.setSizePolicy(sizePolicy)
+        self.lineEdit_2.setStyleSheet("background-color:rgb(59, 94, 127);\n"
+                                        "border:1px solid rgba(0,0,0,0);\n"
+                                        "border-bottom-color:rgba(255,255,255,200);\n"
+                                        "color: rgb(255, 255, 255);\n"
+                                        "font-weight:bold;\n"
+                                        "font: 900 16pt;\n"
+                                        "color: rgb(255, 255, 255);")
         self.lineEdit_2.setInputMask("")
         self.lineEdit_2.setEchoMode(QtWidgets.QLineEdit.Password)
-        self.lineEdit_2.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
-        self.lineEdit_2.setCursorMoveStyle(QtCore.Qt.LogicalMoveStyle)
+        # self.lineEdit_2.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
+        # self.lineEdit_2.setCursorMoveStyle(QtCore.Qt.LogicalMoveStyle)
         self.lineEdit_2.setObjectName("lineEdit_2")
+        inputLayout.addWidget(self.lineEdit_2)
+
+        # 创建按钮布局
+        buttonLayout = QtWidgets.QHBoxLayout()
+
         self.pushButton = QtWidgets.QPushButton(self.widget)
+        self.pushButton.setFixedSize(120, 45)  # 固定按钮大小
         self.pushButton.setGeometry(QtCore.QRect(130, 390, 121, 51))
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
@@ -82,19 +114,35 @@ class Ui_MainWindow(object):
         self.pushButton.setStyleSheet("background-color: rgb(161, 173, 211);\n"
 "font: 75 14pt \"Agency FB\";")
         self.pushButton.setObjectName("pushButton")
-        self.label_2 = QtWidgets.QLabel(self.widget)
-        self.label_2.setGeometry(QtCore.QRect(10, 10, 371, 231))
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.label_2.sizePolicy().hasHeightForWidth())
-        self.label_2.setSizePolicy(sizePolicy)
-        self.label_2.setStyleSheet("border-radius:8px;\n"
-"")
-        self.label_2.setText("")
-        self.label_2.setPixmap(QtGui.QPixmap("img/start.png"))
-        self.label_2.setScaledContents(True)
-        self.label_2.setObjectName("label_2")
+        buttonLayout.addWidget(self.pushButton)
+
+        # 注册按钮
+        self.registerButton = QtWidgets.QPushButton("注册", self.centralwidget)
+        self.registerButton.setFixedSize(120, 45)  # 固定按钮大小
+        self.registerButton.setStyleSheet("background-color: rgb(161, 173, 211);\n"
+"font: 75 14pt \"Agency FB\";")  # 添加字体样式
+        self.pushButton.setObjectName("registerButton")
+        buttonLayout.addWidget(self.registerButton)
+#         self.label_2 = QtWidgets.QLabel(self.widget)
+#         self.label_2.setGeometry(QtCore.QRect(10, 10, 371, 231))
+#         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+#         sizePolicy.setHorizontalStretch(0)
+#         sizePolicy.setVerticalStretch(0)
+#         sizePolicy.setHeightForWidth(self.label_2.sizePolicy().hasHeightForWidth())
+#         self.label_2.setSizePolicy(sizePolicy)
+#         self.label_2.setStyleSheet("border-radius:8px;\n"
+# "")
+#         self.label_2.setText("")
+#         self.label_2.setPixmap(QtGui.QPixmap("img/start.png"))
+#         self.label_2.setScaledContents(True)
+#         self.label_2.setObjectName("label_2")
+
+        inputLayout.addLayout(buttonLayout)
+        mainLayout.addLayout(inputLayout)
+
+        # 设置主布局
+        self.centralwidget.setLayout(mainLayout)
+
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
@@ -102,7 +150,8 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "推箱子"))
         self.lineEdit.setPlaceholderText(_translate("MainWindow", "请输入用户ID"))
         self.lineEdit_2.setPlaceholderText(_translate("MainWindow", "请输入密码"))
-        self.pushButton.setText(_translate("MainWindow", "确认"))
+        self.pushButton.setText(_translate("MainWindow", "登录"))
+        self.registerButton.setText(_translate("MainWindow", "注册"))
