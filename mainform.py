@@ -4,19 +4,36 @@ __author__ = 'Zhewei Hu'
 from PyQt5 import QtWidgets, uic
 from display import Display
 
+from mainwindow import Ui_MainWindow
+from map_editer import MapEditor
+
 class MainWindow(QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()
-        self.ui = uic.loadUi("./mainwindow.ui")
-        self.ui.show()
+        # self.ui = uic.loadUi("./mainwindow.ui")
+        # self.ui.show()
+        # self.load_sav()
+
+        # 实例化开始界面UI
+        self.ui = Ui_MainWindow()
+        self.ui.setupUi(self)
         self.load_sav()
+
         # 按钮关联动作
         self.ui.pushButton.clicked.connect(self.start_level)
+        self.ui.pushButton_2.clicked.connect(self.map_edit)
+
 
     def start_level(self):
         d = Display()
         d.load_level(self.ui.spinBox.value())
         self.load_sav()
+
+
+    def map_edit(self):
+        self.mapEditWindow = MapEditor()
+        self.mapEditWindow.show()
+
 
     def load_sav(self):
         """
