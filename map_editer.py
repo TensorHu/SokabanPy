@@ -22,12 +22,8 @@ class MapEditor:
         aim_pos = pygame.image.load('img/aim_pos.png')
         hero = pygame.image.load('img/player_gif/player_0.png')
         wall = pygame.image.load('img/wall.png')
-        # 定义关卡地图文件路径和要选择的关卡
-        level_map = f"level/{level_id}.map"
         level_to_select = 1
-        # 玩家初始位置和箱子位置列表（新建时使用）
-        player_pos = [1,1]
-        box_pos_list = []
+
         # 显示状态
         disp_state = 0
         # 界面状态标志
@@ -283,8 +279,11 @@ class MapEditor:
             # 选择关卡后的操作
             if interface == 2:
                 if level_to_select == len(levelConfig):# 新建关卡
+
                     data['level_id'] = level_to_select
                     data['level_info']['level_map'] = f"level/{level_to_select}.map"
+                    data['level_info']["player_pos"] = [1,1]
+                    data["level_info"]['box_pos_list'] = []
                     map = [['X'] * map_width if i == 0 or i == map_height - 1 else ['X'] + ['C'] * (map_width - 2) + ['X'] for
                                 i in range(map_height)]
                     interface = 3
