@@ -270,15 +270,16 @@ class MapEditor:
                 map_rect = [[None] * map_width for _ in range(map_height)]
                 w = W1 / map_width
                 h = H1 / map_height
+                l = min(h,w)
                 for y in range(map_height):
                     for x in range(map_width):
-                        map_rect[y][x] = pygame.Rect(w*x,h*y, w, h)
-                wall = pygame.transform.scale(wall, (w, h))
-                hero = pygame.transform.scale(hero, (w, h))
-                box = pygame.transform.scale(box, (w, h))
-                box_c = pygame.transform.scale(box_c, (w, h))
-                carpet = pygame.transform.scale(carpet, (w, h))
-                aim_pos = pygame.transform.scale(aim_pos, (w, h))
+                        map_rect[y][x] = pygame.Rect(l*x,l*y, l, l)
+                wall = pygame.transform.scale(wall, (l, l))
+                hero = pygame.transform.scale(hero, (l, l))
+                box = pygame.transform.scale(box, (l, l))
+                box_c = pygame.transform.scale(box_c, (l, l))
+                carpet = pygame.transform.scale(carpet, (l, l))
+                aim_pos = pygame.transform.scale(aim_pos, (l, l))
             # 选择关卡后的操作
             if interface == 2:
                 if level_to_select == len(levelConfig):# 新建关卡
