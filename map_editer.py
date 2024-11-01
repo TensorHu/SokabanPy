@@ -77,10 +77,8 @@ class MapEditor:
         # 创建地图矩形列表和显示矩形列表
         map_rect = []
         display_rect = []
-
         for i in range(0,7):
             display_rect.append(pygame.Rect(W * 0.8, H * 0.11 * (1 + i), H * 0.1, H * 0.1))
-
         height_rect = pygame.Rect(W * 0.3, H * 0.7, W * 0.15, H * 0.1)
         width_rect = pygame.Rect(W * 0.3, H * 0.8, W * 0.15, H * 0.1)
         # 游戏地图最大高度和宽度
@@ -221,16 +219,17 @@ class MapEditor:
                         pygame.draw.rect(screen, (40,40,40),display_rect[i])
                         display_text_in_rect(screen, "Delete box", display_rect[i], color_unselected,1)
 
-                # 绘制返回和保存按钮
+                # 绘制返回按钮
                 pygame.draw.rect(screen, (70, 20, 0), return_rect)
                 color = color_unselected
                 if return_rect.collidepoint(mouse_pos):
                     color = color_selecting
                     if mouse_l_clicked:
                         interface = 0
-                        data = data1.copy()
+                        data = data1.copy()#关卡信息初始化
                 display_text_in_rect(screen, "cancel", return_rect, color)
 
+                # 绘制保存按钮
                 pygame.draw.rect(screen, (0, 90, 0), save_rect)
                 color = color_unselected
                 if save_rect.collidepoint(mouse_pos):
@@ -243,6 +242,7 @@ class MapEditor:
                             pygame.display.flip()
                             time.sleep(0.8)
                         else:
+                            #保存信息到文件
                             interface = 0
                             id = data["level_id"]
                             map = '\n'.join([''.join(row) for row in map])
@@ -252,14 +252,12 @@ class MapEditor:
                                 levelConfig[id] = data
                             with open(f"level/{id}.map", 'w') as file:
                                 file.writelines(map)
-
                             with open('levelConfig.json', 'w') as file:
                                 json.dump(levelConfig, file, indent = 4)
-
                             data = data1.copy()
                 display_text_in_rect(screen, "save", save_rect, color)
-
                 pygame.display.update()
+                
             # 创建地图块
             if interface == 3:
                 interface = 1
@@ -276,10 +274,11 @@ class MapEditor:
                 box_c = pygame.transform.scale(box_c, (l, l))
                 carpet = pygame.transform.scale(carpet, (l, l))
                 aim_pos = pygame.transform.scale(aim_pos, (l, l))
+                
             # 选择关卡后的操作
             if interface == 2:
-                if level_to_select == len(levelConfig):# 新建关卡
-
+                # 新建关卡
+                if level_to_select == len(levelConfig):
                     data['level_id'] = level_to_select
                     data['level_info']['level_map'] = f"level/{level_to_select}.map"
                     data['level_info']["player_pos"] = [1,1]
@@ -287,8 +286,8 @@ class MapEditor:
                     map = [['X'] * map_width if i == 0 or i == map_height - 1 else ['X'] + ['C'] * (map_width - 2) + ['X'] for
                                 i in range(map_height)]
                     interface = 3
-                else:# 修改关卡
-
+                else:
+                    # 修改关卡
                     interface = 3
                     data = levelConfig[level_to_select].copy()
                     with open(f"level/{level_to_select}.map", 'r') as file:
@@ -324,7 +323,7 @@ class MapEditor:
 
                 display_text_in_rect(screen, "select map", select_rect, color)
 
-                # 绘制关卡选择区域和上下调整按钮
+                # 绘制关卡选择区域
                 pygame.draw.rect(screen, (50, 50, 1), stage_rect)
                 color = color_unselected
                 if stage_rect.collidepoint(mouse_pos):
@@ -341,7 +340,8 @@ class MapEditor:
                             level_to_select = len(levelConfig) - 1
 
                 display_text_in_rect(screen, f"stage {level_to_select}", stage_rect, color)
-
+                
+                # 绘制上下调整按钮
                 pygame.draw.rect(screen, (50, 50, 50), stage_up_rect)
                 color = color_unselected
                 if stage_up_rect.collidepoint(mouse_pos):
@@ -367,15 +367,15 @@ class MapEditor:
                 color = color_unselected
                 if height_rect.collidepoint(mouse_pos):
                     color = color_selecting
-                    if mouse_l_clicked:
+                    if mouse_l_clicked:#鼠标左击
                         color = color_selected
-                    if wheel_up:
-                        map_height = (map_height + 1) % (HEIGHT_max + 1)
+                    if wheel_up:#鼠标上滚
+                        map_height = (map_height + 1) % (HEIGHT_max + 1)#设置地图最大高度
                         if map_height == 0:
                             map_height = 5
-                    if wheel_down:
+                    if wheel_down:#鼠标下滚
                         map_height = map_height - 1
-                        if map_height <= 4:
+                        if map_height <= 4:#设置地图最小高度
                             map_height = HEIGHT_max
                 display_text_in_rect(screen, f"height {map_height}", height_rect, color)
 
@@ -386,17 +386,16 @@ class MapEditor:
                     if mouse_l_clicked:
                         color = color_selected
                     if wheel_up:
-                        map_width = (map_width + 1) % (WIDTH_max + 1)
+                        map_width = (map_width + 1) % (WIDTH_max + 1)#设置地图最大宽度
                         if map_width == 0:
                             map_width = 5
                     if wheel_down:
                         map_width = map_width - 1
                         if map_width <= 4:
-                            map_width = HEIGHT_max
+                            map_width = HEIGHT_max#设置地图最小宽度
                 display_text_in_rect(screen, f"width {map_width}", width_rect, color)
 
                 pygame.display.update()
-
 
 
 if __name__ == "__main__":
