@@ -149,7 +149,7 @@ class MapEditor:
                             if (y == data["level_info"]["player_pos"][0]
                                     and x == data["level_info"]["player_pos"][1]):
                                 c = 1
-                            # 根据不同的显示状态和鼠标点击进行操作
+                            # 放置人物，地图块和箱子
                             if mouse_l_clicked == 1:
                                 if disp_state == 0:
                                     temp_list = list(map[y])
@@ -185,22 +185,23 @@ class MapEditor:
                                     if j!= -1:
                                         del data["level_info"]["box_pos_list"][j]
                 # 根据条件绘制玩家和箱子
-                if counter1%40 <25:
+                if counter1%40 <25:#不同时间内分别显示玩家箱子和地图块
                     y,x =data["level_info"]["player_pos"][0],data["level_info"]["player_pos"][1]
                     screen.blit(hero, map_rect[y][x])
                     for [y,x] in data["level_info"]["box_pos_list"]:
                         screen.blit(box, map_rect[y][x])
-                        if map[y][x] == 'H':
+                        if map[y][x] == 'H':#箱子放到目标地点了
                             screen.blit(box_c, map_rect[y][x])
 
-                # 绘制显示状态选择条
-                sl = 0
+                # 绘制目前选中放置选项的标志
                 rect_pointer = pygame.Rect(W * 0.79, H * 0.11 * (1 + disp_state), H * 0.03, H * 0.1)
                 pygame.draw.rect(screen, (0,20*(counter1%10),0),rect_pointer)
+                # 绘制放置选项
+                sl = 0
                 for i in range(0, 7):
                     if display_rect[i].collidepoint(mouse_pos):
                         if mouse_l_clicked == 1:
-                            sl = 1
+                            sl = 1#表示更新放置选项
                             disp_state = i
                     if i == 0:
                         screen.blit(carpet_, display_rect[i])
